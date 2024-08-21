@@ -1,0 +1,644 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Management System API Documentation",
+        "description": "API documentation for the Task Management System",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get list of tasks",
+                "description": "Returns list of tasks",
+                "operationId": "getTasksList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "get all tasks"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Task"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No tasks found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No tasks found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create a new task",
+                "description": "Creates a new task and returns the created task",
+                "operationId": "storeTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Task title",
+                                        "type": "string",
+                                        "example": "Complete project"
+                                    },
+                                    "description": {
+                                        "description": "Task description",
+                                        "type": "string",
+                                        "example": "Finish the project by the end of the week."
+                                    },
+                                    "expiration_date": {
+                                        "description": "Expiration date",
+                                        "type": "string",
+                                        "example": "1403/05/31"
+                                    },
+                                    "priority": {
+                                        "description": "Task priority",
+                                        "type": "string",
+                                        "example": "high"
+                                    },
+                                    "status": {
+                                        "description": "Task status",
+                                        "type": "string",
+                                        "example": "in_progress"
+                                    },
+                                    "user_id": {
+                                        "description": "User ID",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "get task"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error creating task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No task found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tasks/{task_id}": {
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Update an existing task",
+                "description": "Updates an existing task and returns the updated task",
+                "operationId": "updateTask",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "Task ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "description": "Task title",
+                                        "type": "string",
+                                        "example": "Complete project"
+                                    },
+                                    "description": {
+                                        "description": "Task description",
+                                        "type": "string",
+                                        "example": "Finish the project by the end of the week."
+                                    },
+                                    "expiration_date": {
+                                        "description": "Expiration date",
+                                        "type": "string",
+                                        "example": "1403/05/31"
+                                    },
+                                    "priority": {
+                                        "description": "Task priority",
+                                        "type": "string",
+                                        "example": "high"
+                                    },
+                                    "status": {
+                                        "description": "Task status",
+                                        "type": "string",
+                                        "example": "in_progress"
+                                    },
+                                    "user_id": {
+                                        "description": "User ID",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "get task"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error updating task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No task found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete an existing task",
+                "description": "Deletes a task and returns a success response",
+                "operationId": "deleteTask",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "Task ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "task deleted"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Task not found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tasks/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get all tasks for a specific user",
+                "description": "Returns a list of tasks associated with the given user",
+                "operationId": "getUserTasks",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "get all user tasks"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Task Title"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Task Description"
+                                                    },
+                                                    "expiration_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "1403/05/31"
+                                                    },
+                                                    "priority": {
+                                                        "type": "string",
+                                                        "example": "high"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "in_progress"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No tasks found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No tasks found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tasks/update-status/{task_id}": {
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Update the status of a task",
+                "description": "Updates the status of a specific task",
+                "operationId": "updateStatus",
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "Task ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "example": "completed"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task status updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "get task"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Task Title"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Task Description"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1403/05/31"
+                                                },
+                                                "priority": {
+                                                    "type": "string",
+                                                    "example": "high"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "completed"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No task found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No task found"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "data": {
+                                            "type": "null"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Task": {
+                "properties": {
+                    "id": {
+                        "description": "Task ID",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "Task title",
+                        "type": "string",
+                        "example": "Complete project"
+                    },
+                    "description": {
+                        "description": "Task description",
+                        "type": "string",
+                        "example": "Finish the project by the end of the week."
+                    },
+                    "status": {
+                        "description": "Task status",
+                        "type": "string",
+                        "example": "in-progress"
+                    },
+                    "priority": {
+                        "description": "Task priority",
+                        "type": "string",
+                        "example": "high"
+                    },
+                    "expiration_date": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2024-09-10"
+                    },
+                    "created_at": {
+                        "description": "Creation date",
+                        "type": "string",
+                        "example": "2024-08-20 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Last update date",
+                        "type": "string",
+                        "example": "2024-08-21 14:30:00"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/webfonts/Vazirmatn-FD-Regular.woff2') format('woff2'),
+         url('../fonts/webfonts/Vazirmatn-FD-Bold.woff2') format('woff2'),
+         url('../fonts/webfonts/Vazirmatn-FD-ExtraBold.woff2') format('woff2'),
+         url('../fonts/webfonts/Vazirmatn-FD-SemiBold.woff2') format('woff2'),
+         url('../fonts/ttf/Vazirmatn-FD-Regular.ttf') format('truetype');
+}
+
+body{
+    font-family: Vazirmatn;
+    box-sizing: border-box;
+}
+
+.my-shadow {
+    box-shadow: 0px 0px 10px  rgba(182, 182, 182, 0.849);
+}
+
+[x-cloak] { display: none !important; }
